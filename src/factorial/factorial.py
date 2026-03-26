@@ -22,7 +22,7 @@ def factorial(num):
 
 # Programa principal: verifica si hay argumento, si no lo pide
 if len(sys.argv) < 2:
-    entrada = input("Ingrese un número o rango (ej: 5, 4-8): ")
+    entrada = input("Ingrese un número o rango (ej: 5, 4-8, -10, 5-): ")
 else:
     entrada = sys.argv[1]
 
@@ -30,8 +30,22 @@ else:
 if "-" in entrada:
     # Separar por el guión
     partes = entrada.split("-")
-    inicio = int(partes[0])
-    fin = int(partes[1])
+    
+    # Caso "-10" (desde 1 hasta el número)
+    if partes[0] == "":
+        inicio = 1
+        fin = int(partes[1])
+    
+    # Caso "5-" (desde el número hasta 60)
+    elif partes[1] == "":
+        inicio = int(partes[0])
+        fin = 60
+    
+    # Caso "4-8" (rango normal)
+    else:
+        inicio = int(partes[0])
+        fin = int(partes[1])
+    
     # Calcular factorial para cada número en el rango
     for numero in range(inicio, fin + 1):
         print("Factorial", numero, "! es", factorial(numero))
